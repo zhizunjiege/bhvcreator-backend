@@ -11,6 +11,7 @@ CREATE TABLE "ruleset" (
   "description" text NOT NULL,
   "create_time" text,
   "update_time" text,
+  "mode" text NOT NULL,
   "xml" text NOT NULL
 );
 
@@ -24,7 +25,7 @@ BEGIN
 	UPDATE ruleset SET create_time=DATETIME('now','localtime') WHERE id=new.id;
 END;
 CREATE TRIGGER "on_update_ruleset"
-AFTER UPDATE OF "id", "name", "version", "description", "create_time", "xml"
+AFTER UPDATE OF "id", "name", "version", "description", "create_time", "mode", "xml"
 ON "ruleset"
 BEGIN
 	UPDATE ruleset SET update_time=DATETIME('now','localtime') WHERE id=new.id;

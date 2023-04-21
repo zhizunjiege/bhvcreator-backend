@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-model href="ruleset.xsd"?>
-<RuleSet mode="hybrid">
+<RuleSet>
   <TypeDefines>
     <TypeDefine type="Location">
       <Variable name="altitude" type="float64" />
@@ -33,36 +33,36 @@
   </FuncDefines>
   <MetaInfo>
     <Consts>
-      <Const name="Const1" type="float64">
+      <Const name="Const1" type="float64" desc="Example const">
         <Value>3.1415926535</Value>
       </Const>
     </Consts>
     <Inputs>
-      <Input name="Input1" type="uint32" />
+      <Input name="Input1" type="uint32" desc="Example input" />
     </Inputs>
     <Outputs>
-      <Output name="Output1" type="uint32" />
+      <Output name="Output1" type="uint32" desc="Example output" />
     </Outputs>
     <Caches>
-      <Cache name="Cache1" type="uint32">
+      <Cache name="Cache1" type="uint32" desc="Example cache">
         <Value>0</Value>
       </Cache>
     </Caches>
     <Temps>
-      <Temp name="Temp1" type="uint32">
+      <Temp name="Temp1" type="uint32" desc="Example temp">
         <Value>Input1+1</Value>
       </Temp>
     </Temps>
   </MetaInfo>
   <SubSets>
-    <SubSet mode="hybrid">
-      <Condition>
+    <SubSet id="7d54" mode="hybrid" name="SubSet1" desc="Example subset">
+      <Condition join="and">
         <Expression>Input1==0</Expression>
       </Condition>
       <SubSets></SubSets>
       <Rules>
-        <Rule>
-          <Condition>
+        <Rule id="a5ec" name="Rule1" desc="Example rule">
+          <Condition join="and">
             <Expression>Cache1&lt;=10</Expression>
           </Condition>
           <Consequence>
@@ -72,8 +72,8 @@
             </Assignment>
           </Consequence>
         </Rule>
-        <Rule>
-          <Condition>
+        <Rule id="64f7" name="Rule2" desc="Example rule">
+          <Condition join="and">
             <Expression>Cache1&gt;10</Expression>
           </Condition>
           <Consequence>
@@ -85,14 +85,14 @@
         </Rule>
       </Rules>
     </SubSet>
-    <SubSet mode="hybrid">
-      <Condition>
+    <SubSet id="bbb4" mode="hybrid" name="SubSet2" desc="Example subset">
+      <Condition join="and">
         <Expression>Input1!=0</Expression>
       </Condition>
       <SubSets></SubSets>
       <Rules>
-        <Rule>
-          <Condition>
+        <Rule id="a5ec" name="Rule1" desc="Example rule">
+          <Condition join="and">
             <Expression>Input1!=0</Expression>
           </Condition>
           <Consequence>
@@ -102,8 +102,8 @@
             </Assignment>
           </Consequence>
         </Rule>
-        <Rule>
-          <Condition>
+        <Rule id="64f7" name="Rule2" desc="Example rule">
+          <Condition join="and">
             <Expression>Input1==0</Expression>
           </Condition>
           <Consequence>
@@ -117,8 +117,8 @@
     </SubSet>
   </SubSets>
   <Rules>
-    <Rule>
-      <Condition>
+    <Rule id="a5ec" name="Rule2" desc="Example rule">
+      <Condition join="and">
         <Expression>Cache1&lt;=10</Expression>
       </Condition>
       <Consequence>
@@ -128,8 +128,8 @@
         </Assignment>
       </Consequence>
     </Rule>
-    <Rule>
-      <Condition>
+    <Rule id="64f7" name="Rule2" desc="Example rule">
+      <Condition join="and">
         <Expression>Cache1&gt;10</Expression>
       </Condition>
       <Consequence>

@@ -81,7 +81,6 @@
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="mode" type="xs:string" use="required" />
     </xs:complexType>
   </xs:element>
 
@@ -89,7 +88,7 @@
     <xs:sequence>
       <xs:element name="Variable" type="Parameter" maxOccurs="unbounded" />
     </xs:sequence>
-    <xs:attribute name="type" type="xs:string" />
+    <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
 
   <xs:complexType name="FuncDefine">
@@ -106,21 +105,22 @@
         <xs:complexType>
           <xs:complexContent>
             <xs:extension base="Expression">
-              <xs:attribute name="type" type="xs:string" />
+              <xs:attribute name="type" type="xs:string" use="required" />
             </xs:extension>
           </xs:complexContent>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="type" type="xs:string" />
+    <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
 
   <xs:complexType name="MetaParam">
     <xs:complexContent>
       <xs:extension base="Parameter">
         <xs:sequence>
-          <xs:element name="Value" type="Expression" minOccurs="0" maxOccurs="1" />
+          <xs:element name="Value" type="Expression" minOccurs="0" />
         </xs:sequence>
+        <xs:attribute name="desc" type="xs:string" use="required" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -143,7 +143,10 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
     <xs:attribute name="mode" type="xs:string" use="required" />
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="desc" type="xs:string" use="required" />
   </xs:complexType>
 
   <xs:complexType name="Rule">
@@ -152,7 +155,7 @@
       <xs:element name="Consequence">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Assignment" minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="Assignment" maxOccurs="unbounded">
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="Target" type="xs:string" />
@@ -164,6 +167,9 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="desc" type="xs:string" use="required" />
   </xs:complexType>
 
   <xs:complexType name="Parameter">
@@ -179,8 +185,8 @@
 
   <xs:complexType name="Condition">
     <xs:sequence>
-      <xs:element name="Expression" type="Expression" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="Expression" type="Expression" maxOccurs="unbounded" />
     </xs:sequence>
-    <xs:attribute name="join" type="xs:string" />
+    <xs:attribute name="join" type="xs:string" use="required" />
   </xs:complexType>
 </xs:schema>
