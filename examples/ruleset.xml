@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="ruleset.xsd"?>
 <RuleSet>
   <TypeDefines>
@@ -55,7 +55,7 @@
     </Temps>
   </MetaInfo>
   <SubSets>
-    <SubSet id="7d54" mode="hybrid" name="SubSet1" desc="Example subset">
+    <SubSet id="7d54" name="SubSet1" desc="Example subset">
       <Condition join="and">
         <Expression>Input1==0</Expression>
       </Condition>
@@ -85,7 +85,7 @@
         </Rule>
       </Rules>
     </SubSet>
-    <SubSet id="bbb4" mode="hybrid" name="SubSet2" desc="Example subset">
+    <SubSet id="bbb4" name="SubSet2" desc="Example subset">
       <Condition join="and">
         <Expression>Input1!=0</Expression>
       </Condition>

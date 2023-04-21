@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:annotation>
-    <xs:documentation> Ruleset/Subset mode must be one of hybrid, ruleonly or subsetonly. </xs:documentation>
-    <xs:documentation> All subsets will run in parallel, while rules in series. </xs:documentation>
-    <xs:documentation> `hybrid` means treating rules as an normal subset. </xs:documentation>
-    <xs:documentation> `ruleonly` means subsets will be ignored. </xs:documentation>
-    <xs:documentation> `subsetonly` means rules will be ignored. </xs:documentation>
-  </xs:annotation>
-
   <xs:element name="RuleSet">
     <xs:complexType>
       <xs:sequence>
@@ -88,12 +80,12 @@
     <xs:sequence>
       <xs:element name="Variable" type="Parameter" maxOccurs="unbounded" />
     </xs:sequence>
-    <xs:attribute name="type" type="xs:string" use="required" />
+    <xs:attribute name="type" type="xs:token" use="required" />
   </xs:complexType>
 
   <xs:complexType name="FuncDefine">
     <xs:sequence>
-      <xs:element name="Symbol" type="xs:string" />
+      <xs:element name="Symbol" type="xs:token" />
       <xs:element name="Params">
         <xs:complexType>
           <xs:sequence>
@@ -105,13 +97,13 @@
         <xs:complexType>
           <xs:complexContent>
             <xs:extension base="Expression">
-              <xs:attribute name="type" type="xs:string" use="required" />
+              <xs:attribute name="type" type="xs:token" use="required" />
             </xs:extension>
           </xs:complexContent>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="type" type="xs:string" use="required" />
+    <xs:attribute name="type" type="xs:token" use="required" />
   </xs:complexType>
 
   <xs:complexType name="MetaParam">
@@ -143,8 +135,7 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="id" type="xs:string" use="required" />
-    <xs:attribute name="mode" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:token" use="required" />
     <xs:attribute name="name" type="xs:string" use="required" />
     <xs:attribute name="desc" type="xs:string" use="required" />
   </xs:complexType>
@@ -158,7 +149,7 @@
             <xs:element name="Assignment" maxOccurs="unbounded">
               <xs:complexType>
                 <xs:sequence>
-                  <xs:element name="Target" type="xs:string" />
+                  <xs:element name="Target" type="xs:token" />
                   <xs:element name="Value" type="Expression" />
                 </xs:sequence>
               </xs:complexType>
@@ -167,14 +158,14 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="id" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:token" use="required" />
     <xs:attribute name="name" type="xs:string" use="required" />
     <xs:attribute name="desc" type="xs:string" use="required" />
   </xs:complexType>
 
   <xs:complexType name="Parameter">
-    <xs:attribute name="name" type="xs:string" use="required" />
-    <xs:attribute name="type" type="xs:string" use="required" />
+    <xs:attribute name="name" type="xs:token" use="required" />
+    <xs:attribute name="type" type="xs:token" use="required" />
   </xs:complexType>
 
   <xs:complexType name="Expression">
@@ -187,6 +178,13 @@
     <xs:sequence>
       <xs:element name="Expression" type="Expression" maxOccurs="unbounded" />
     </xs:sequence>
-    <xs:attribute name="join" type="xs:string" use="required" />
+    <xs:attribute name="join" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="and" />
+          <xs:enumeration value="or" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
   </xs:complexType>
 </xs:schema>
