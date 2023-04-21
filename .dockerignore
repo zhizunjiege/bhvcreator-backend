@@ -1,0 +1,41 @@
+# git files
+.git/
+
+# pycache
+__pycache__/
+
+# editor files
+.idea/
+.vscode/
+
+# misc files
+misc/
+
+# temp files
+tmp/
+temp/
+tmp.*
+temp.*
+
+# log files
+logs/
+
+# data files
+data/
+
+# example files
+examples/
+
+# test files
+tests/
+
+# tool scripts
+tools/
+
+# config files
+.gitignore
+.dockerignore
+.editorconfig
+.flake8
+.style.yapf
+.yapfignore

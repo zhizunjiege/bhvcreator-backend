@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="ruleset.xsd"?>
+<RuleSet mode="hybrid">
+  <TypeDefines>
+    <TypeDefine type="Location">
+      <Variable name="altitude" type="float64" />
+      <Variable name="longitude" type="float64" />
+      <Variable name="latitude" type="float64" />
+    </TypeDefine>
+    <TypeDefine type="Vector3">
+      <Variable name="x" type="float64" />
+      <Variable name="y" type="float64" />
+      <Variable name="z" type="float64" />
+    </TypeDefine>
+  </TypeDefines>
+  <FuncDefines>
+    <FuncDefine type="normal">
+      <Symbol>add</Symbol>
+      <Params>
+        <Param name="a" type="uint32" />
+        <Param name="b" type="uint32" />
+      </Params>
+      <Return type="u">a+b</Return>
+    </FuncDefine>
+    <FuncDefine type="operator">
+      <Symbol>*</Symbol>
+      <Params>
+        <Param name="a" type="Vector3" />
+        <Param name="b" type="Vector3" />
+      </Params>
+      <Return type="float64">a.x*b.x+a.y*b.y+a.z*b.z </Return>
+    </FuncDefine>
+  </FuncDefines>
+  <MetaInfo>
+    <Consts>
+      <Const name="Const1" type="float64">
+        <Value>3.1415926535</Value>
+      </Const>
+    </Consts>
+    <Inputs>
+      <Input name="Input1" type="uint32" />
+    </Inputs>
+    <Outputs>
+      <Output name="Output1" type="uint32" />
+    </Outputs>
+    <Caches>
+      <Cache name="Cache1" type="uint32">
+        <Value>0</Value>
+      </Cache>
+    </Caches>
+    <Temps>
+      <Temp name="Temp1" type="uint32">
+        <Value>Input1+1</Value>
+      </Temp>
+    </Temps>
+  </MetaInfo>
+  <SubSets>
+    <SubSet mode="hybrid">
+      <Condition>
+        <Expression>Input1==0</Expression>
+      </Condition>
+      <SubSets></SubSets>
+      <Rules>
+        <Rule>
+          <Condition>
+            <Expression>Cache1&lt;=10</Expression>
+          </Condition>
+          <Consequence>
+            <Assignment>
+              <Target>Output1</Target>
+              <Value>0</Value>
+            </Assignment>
+          </Consequence>
+        </Rule>
+        <Rule>
+          <Condition>
+            <Expression>Cache1&gt;10</Expression>
+          </Condition>
+          <Consequence>
+            <Assignment>
+              <Target>Output1</Target>
+              <Value>1</Value>
+            </Assignment>
+          </Consequence>
+        </Rule>
+      </Rules>
+    </SubSet>
+    <SubSet mode="hybrid">
+      <Condition>
+        <Expression>Input1!=0</Expression>
+      </Condition>
+      <SubSets></SubSets>
+      <Rules>
+        <Rule>
+          <Condition>
+            <Expression>Input1!=0</Expression>
+          </Condition>
+          <Consequence>
+            <Assignment>
+              <Target>Cache1</Target>
+              <Value>Cache1+1</Value>
+            </Assignment>
+          </Consequence>
+        </Rule>
+        <Rule>
+          <Condition>
+            <Expression>Input1==0</Expression>
+          </Condition>
+          <Consequence>
+            <Assignment>
+              <Target>Cache1</Target>
+              <Value>Cache1-1</Value>
+            </Assignment>
+          </Consequence>
+        </Rule>
+      </Rules>
+    </SubSet>
+  </SubSets>
+  <Rules>
+    <Rule>
+      <Condition>
+        <Expression>Cache1&lt;=10</Expression>
+      </Condition>
+      <Consequence>
+        <Assignment>
+          <Target>Output1</Target>
+          <Value>0</Value>
+        </Assignment>
+      </Consequence>
+    </Rule>
+    <Rule>
+      <Condition>
+        <Expression>Cache1&gt;10</Expression>
+      </Condition>
+      <Consequence>
+        <Assignment>
+          <Target>Output1</Target>
+          <Value>1</Value>
+        </Assignment>
+      </Consequence>
+    </Rule>
+  </Rules>
+</RuleSet>

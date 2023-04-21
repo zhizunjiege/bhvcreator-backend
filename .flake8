@@ -1,0 +1,2 @@
+[flake8]
+exclude = .git,.vscode,.idea,__pycache__,build,dist,temp,tmp
