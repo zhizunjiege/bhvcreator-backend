@@ -41,8 +41,3 @@ tools/
 .flake8
 .style.yapf
 .yapfignore
-
-# pip requirements
-requirements.txt
-development.txt
-production.txt
