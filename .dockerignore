@@ -34,8 +34,15 @@ tools/
 
 # config files
 .gitignore
+.gitattributes
+.gitmodules
 .dockerignore
 .editorconfig
 .flake8
 .style.yapf
 .yapfignore
+
+# pip requirements
+requirements.txt
+development.txt
+production.txt

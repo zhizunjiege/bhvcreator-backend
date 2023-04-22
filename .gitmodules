@@ -1,0 +1,3 @@
+[submodule "3rd/xmldef"]
+	path = 3rd/xmldef
+	url = https://github.com/zhizunjiege/bhvcreator-xmldef.git
