@@ -26,6 +26,12 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 500)
         print(res.text)
 
+        res = requests.get(addr, params={
+            'columns': ['id'],
+            'mode': 'normal',
+        })
+        self.assertTrue(res.ok)
+
         res = requests.get(addr, params={})
         self.assertTrue(res.ok)
 
@@ -49,6 +55,7 @@ class AppTestCase(unittest.TestCase):
                 'name': 'test',
                 'version': '1.0.0',
                 'description': 'test',
+                'mode': 'normal',
                 'xml': '',
             },
         )

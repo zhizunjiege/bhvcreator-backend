@@ -46,18 +46,18 @@ def index():
 def select(table: str):
     args = request.args
     try:
-        id = args.get('id', type=int)
         columns = args.getlist('columns', type=str)
         targets = ', '.join(columns) if len(columns) > 0 else '*'
-    except Exception:
+        args = args.to_dict()
+        args.pop('columns', None)
+        options = [f'{key} = ?' for key in args.keys()]
+        filters = ', '.join(options) if len(options) > 0 else '1'
+    except Exception as e:
+        print(e)
         return 'Invalid arguments', 400
 
-    query = f'SELECT {targets} FROM {table}'
-    if id is not None:
-        query += ' WHERE id = ?'
-        params = (id,)
-    else:
-        params = ()
+    query = f'SELECT {targets} FROM {table} WHERE {filters}'
+    params = tuple(args.values())
 
     try:
         con, cur = get_db(DB_PATH)
@@ -81,7 +81,8 @@ def insert(table: str):
             del data['id']
         keys = ', '.join(data.keys())
         values = ', '.join(['?' for _ in data])
-    except Exception:
+    except Exception as e:
+        print(e)
         return 'Invalid arguments', 400
 
     query = f'INSERT INTO {table} ({keys}) VALUES ({values})'
@@ -112,7 +113,8 @@ def update(table: str):
             id = data['id']
             del data['id']
         pairs = ', '.join([f'{key} = ?' for key in data.keys()])
-    except Exception:
+    except Exception as e:
+        print(e)
         return 'Invalid arguments', 400
 
     query = f'UPDATE {table} SET {pairs} WHERE id = ?'
@@ -142,7 +144,8 @@ def delete(table: str):
         else:
             ids = data['ids']
         conds = ', '.join([str(id) for id in ids])
-    except Exception:
+    except Exception as e:
+        print(e)
         return 'Invalid arguments', 400
 
     query = f'DELETE FROM {table} WHERE id in ({conds})'
