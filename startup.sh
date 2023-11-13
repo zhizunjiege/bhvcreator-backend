@@ -1,13 +1,10 @@
 #!/bin/bash
 
 # parse arguments -w, -l
-while getopts "w:l:" opt; do
+while getopts "w:" opt; do
   case $opt in
   w)
     workers=$OPTARG
-    ;;
-  l)
-    loglevel=$OPTARG
     ;;
   ?)
     echo "Invalid option: -$opt"
@@ -25,7 +22,7 @@ function grace_exit() {
   exit 0
 }
 
-trap "grace_exit gunicorn" INT TERM
+trap "grace_exit waitress-serve" INT TERM
 
 # mkdir for logs
 mkdir -p data/logs
@@ -33,9 +30,9 @@ mkdir -p data/logs
 # get current time
 time=$(date +"%Y-%m-%d %H-%M-%S")
 
-# run gunicorn in background
-echo "starting gunicorn..."
-gunicorn -w ${workers:-4} -b 0.0.0.0:80 --log-level ${loglevel:-error} --preload app:app </dev/null >"data/logs/$time.app.log" 2>&1 &
+# run waitress in background
+echo "starting waitress..."
+waitress-serve --listen 0.0.0.0:80 --threads=${workers:-4} app:app </dev/null >"data/logs/$time.app.log" 2>&1 &
 
 # wait for subprocess
 wait

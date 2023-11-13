@@ -24,29 +24,26 @@ class AppTestCase(unittest.TestCase):
             'columns': ['time'],
         })
         self.assertEqual(res.status_code, 500)
-        print(res.text)
 
         res = requests.get(addr, params={
             'columns': ['id'],
-            'mode': 'normal',
         })
         self.assertTrue(res.ok)
 
         res = requests.get(addr, params={})
-        self.assertTrue(res.ok)
+        data = res.json()
+        self.assertListEqual(data, [])
 
     def test_02_insert(self):
         addr = f'{self.addr}/api/db/ruleset'
 
         res = requests.post(addr, json='test')
         self.assertEqual(res.status_code, 400)
-        print(res.text)
 
         res = requests.post(addr, json={
             'name': 'test',
         })
         self.assertEqual(res.status_code, 500)
-        print(res.text)
 
         res = requests.post(
             addr,
@@ -55,11 +52,12 @@ class AppTestCase(unittest.TestCase):
                 'name': 'test',
                 'version': '1.0.0',
                 'description': 'test',
-                'mode': 'normal',
                 'xml': '',
             },
         )
-        self.assertTrue(res.ok)
+        data = res.json()
+        self.assertIn('lastrowid', data)
+        self.assertEqual(data['lastrowid'], 1)
 
     def test_03_update(self):
         addr = f'{self.addr}/api/db/ruleset'
@@ -68,20 +66,20 @@ class AppTestCase(unittest.TestCase):
             'xml': '',
         })
         self.assertEqual(res.status_code, 400)
-        print(res.text)
 
         res = requests.put(addr, json={
             'id': 1,
             'xml': [0],
         })
         self.assertEqual(res.status_code, 500)
-        print(res.text)
 
         res = requests.put(addr, json={
             'id': 1,
             'xml': 'helloworld',
         })
-        self.assertTrue(res.ok)
+        data = res.json()
+        self.assertIn('rowcount', data)
+        self.assertEqual(data['rowcount'], 1)
 
     def test_04_delete(self):
         addr = f'{self.addr}/api/db/ruleset'
@@ -90,15 +88,15 @@ class AppTestCase(unittest.TestCase):
             'id': 0,
         })
         self.assertEqual(res.status_code, 400)
-        print(res.text)
 
         res = requests.delete(addr, json={
-            'ids': 'test',
+            'ids': [],
         })
-        self.assertEqual(res.status_code, 500)
-        print(res.text)
+        self.assertEqual(res.status_code, 400)
 
         res = requests.delete(addr, json={
             'ids': [1],
         })
-        self.assertTrue(res.ok)
+        data = res.json()
+        self.assertIn('rowcount', data)
+        self.assertEqual(data['rowcount'], 1)

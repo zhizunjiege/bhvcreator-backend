@@ -10,11 +10,13 @@ WORKDIR /app
 COPY . .
 COPY --from=frontend /app/frontend/dist /app/static
 ENV TZ=Asia/Shanghai
-RUN apt-get update \
+RUN sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+  && apt-get clean \
+  && apt-get update \
   && apt-get -y install procps \
   && pip install -i https://mirrors.aliyun.com/pypi/simple --no-cache-dir -r production.txt \
   && chmod +x startup.sh
 EXPOSE 80
 VOLUME [ "/app/data" ]
 ENTRYPOINT [ "./startup.sh" ]
-CMD [ "-w", "4", "-l", "error" ]
+CMD [ "-w", "4" ]
