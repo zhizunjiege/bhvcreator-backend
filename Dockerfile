@@ -16,7 +16,7 @@ RUN sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
   && apt-get -y install procps \
   && pip install -i https://mirrors.aliyun.com/pypi/simple --no-cache-dir -r production.txt \
   && chmod +x startup.sh
-EXPOSE 6666
+EXPOSE 6677
 VOLUME [ "/app/data" ]
 ENTRYPOINT [ "./startup.sh" ]
 CMD [ "-w", "4" ]

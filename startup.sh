@@ -32,7 +32,7 @@ time=$(date +"%Y-%m-%d %H-%M-%S")
 
 # run waitress in background
 echo "starting waitress..."
-waitress-serve --listen 0.0.0.0:6666 --threads=${workers:-4} app:app </dev/null >"data/logs/$time.app.log" 2>&1 &
+waitress-serve --listen 0.0.0.0:6677 --threads=${workers:-4} app:app </dev/null >"data/logs/$time.app.log" 2>&1 &
 
 # wait for subprocess
 wait
